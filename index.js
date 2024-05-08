@@ -1,6 +1,7 @@
-const group = [
+const groupList = [
     'Alex',
     'Amir',
+    'Anna',
     'Dominic',
     'Eddy',
     'Gary',
@@ -9,58 +10,93 @@ const group = [
     'Kapil',
     'Mehedi',
     'Muhammad',
-    'Anna',
     'Nikolay',
     'Vladimir',
     'Yohannes',
 ];
 
-const gList = document.querySelector('#g-list')
-group.forEach(g => {
-    const li = document.createElement('li');
-    li.innerText = g;
-    gList.appendChild(li);
-});
-
 const teams = [4, 4, 3, 3];
 
-const shuffle = (arr) => {
-    let i = arr.length;
-    while (i) {
-        let j = Math.floor(Math.random() * i--);
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+const gList = document.querySelector('#g-list')
+const tTable = document.querySelector('#t-table');
+const updateBtns = document.querySelectorAll('.btn--update');
+const copyBtns = document.querySelectorAll('.btn--copy');
+
+
+createGroupList(groupList);
+createTableHeader(tTable, teams);
+
+updateBtns.forEach(uBtn => {
+    uBtn.addEventListener('click', () => {
+        const tRows = tTable.querySelectorAll('tr');
+        tRows.forEach((tr, i) => i && tr.remove())
+        const sGroup = shuffleGroup(groupList);
+        createTableRows(tTable, fillTeamsList(sGroup));
+    })
+})
+
+copyBtns.forEach(cBtn => {
+    cBtn.addEventListener('click', () => {
+        const longestName = Math.max(...groupList.map(name => name.length));
+        const columnWidth = longestName + 2;
+        // const tRows = tTable.querySelectorAll('tr');
+        // const tData = [...tRows].map(tr => [...tr.children].map(td => td.innerText));
+        // const tData = [...tRows][0].map(tr => [...tr.children]);
+        // console.log(tData);
+        // navigator.clipboard.writeText(JSON.stringify(tData));
+        alert('In progress! \nPlease check back later.')
+    })
+})
+
+// Functions
+
+function fillTeamsList(shafGroup) {
+    const teamsList = [];
+
+    teams.forEach((n) => {
+        teamsList.push(shafGroup.splice(0, n));
+    });
+    return teamsList;
 }
 
-const shaffled_group = shuffle(group);
+function createGroupList(group) {
+    group.forEach(g => {
+        const li = document.createElement('li');
+        li.innerText = g;
+        gList.appendChild(li);
+    });
+}
 
-const teamsList = [];
-let i = 0;
-teams.forEach((n , i) => {
-    teamsList.push(shaffled_group.splice(0, n));
-});
+function shuffleGroup(gList) {
+    const sgList = [...gList]
+    let i = sgList.length;
+    while (i) {
+        let j = Math.floor(Math.random() * i--);
+        [sgList[i], sgList[j]] = [sgList[j], sgList[i]];
+    }
+    return sgList;
+}
 
-console.log(teamsList);
+function createTableRows(table, teamsList) {
+    for (let i = 0; i < teamsList[0].length; i++) {
+        const tr = document.createElement('tr');
+        teamsList.forEach(t => {
+            const td = document.createElement('td');
+            if (t[i] !== undefined) {
+                td.innerText = t[i];
+            }
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    }
+}
 
-const tTable = document.querySelector('#t-table');
-
-const tr = document.createElement('tr');
-teamsList.forEach((_, i) => {
-    const td = document.createElement('th');
-    td.innerText = `Team ${i + 1}`;
-    tr.appendChild(td);
-});
-tTable.appendChild(tr);
-
-for (let i = 0; i < teamsList[0].length; i++) {
+function createTableHeader(table, teamsList) {
     const tr = document.createElement('tr');
-    teamsList.forEach(t => {
-        const td = document.createElement('td');
-        if (t[i] !== undefined) {
-            td.innerText = t[i];
-        }
+    teamsList.forEach((_, i) => {
+        const td = document.createElement('th');
+        td.innerText = `Team ${i + 1}`;
         tr.appendChild(td);
     });
-    tTable.appendChild(tr);
+    table.appendChild(tr);
 }

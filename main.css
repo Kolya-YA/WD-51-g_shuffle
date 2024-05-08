@@ -1,0 +1,149 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+    text-wrap: balance;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+/* end of reset */
+
+body {
+    color: #222;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.wrapper {
+    max-width: min(1024px, calc(100vw - 2rem));
+    margin-inline: auto;
+}
+
+.header {
+    padding-block: 1rem;
+    background-color: #3332;
+    text-align: center;
+    h1 {
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+    }
+}
+
+.main__inner {
+
+    @media (width > 760px) {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 2rem;
+    }
+}
+
+.main__group {
+
+    h2 {
+        margin-block: 1rem;
+        text-align: center;
+    }
+    
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    ul>li:nth-child(even) {
+        padding: .2rem 1rem;
+        background-color: #2222;
+    }
+    
+    #g-list > li:nth-child(odd) {
+        padding: .2rem 1rem;
+        background-color: #8882;
+    }
+    
+    #g-list > li::marker {
+        color: #3332;
+    }
+}
+
+.main__teams {
+
+    h2 {
+        margin-block: 1rem;
+    }
+
+    #t-table {
+        background-color: #3336;
+        width: 100%;
+        table-layout: fixed;
+
+        th {
+            padding: .2rem 1rem;
+            background-color: #fff8;
+            text-align: start;
+        }
+        
+        td {
+            padding: .2rem 1rem;
+            background-color: #fffc;
+        }
+    }
+
+
+}
+
+.main__btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-block: 2rem;
+
+    .btn {
+        /* display: block; */
+        /* margin-inline: auto; */
+        padding: 1rem 3rem;
+        font-size: 2rem;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+}

@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
     <title>Team randomizer</title>
 </head>
 <body>
-    <h1>Team randomizer</h1>
-    <h2>Group list</h2>
-    <ul id="g-list">
-
-    </ul>
-    <h2>Teams list</h2>
-    <p>Just reload this page for the update teams</p>
-    <table id="t-table">
-    </table>
+    <header class="header">
+        <div class="wrapper">
+            <h1>Team randomizer</h1>
+        </div>
+    </header>
+    <main class="main">
+        <div class="wrapper main__inner">
+            <div class="main__group">
+                <h2>WD-51 Group list</h2>
+                <ul id="g-list"></ul>
+            </div>
+                    
+            <div class="main__teams">
+                <h2>Teams list</h2>
+                <table id="t-table"></table>
+                <div class="main__btns">
+                    <button type="button" class="btn btn--update">Update</button>
+                    <button type="button" class="btn btn--copy">Copy</button>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 <script src="index.js"></script>
 </html>
