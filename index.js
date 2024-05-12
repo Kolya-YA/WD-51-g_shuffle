@@ -36,16 +36,7 @@ updateBtns.forEach(uBtn => {
 })
 
 copyBtns.forEach(cBtn => {
-    cBtn.addEventListener('click', () => {
-        const longestName = Math.max(...groupList.map(name => name.length));
-        const columnWidth = longestName + 2;
-        // const tRows = tTable.querySelectorAll('tr');
-        // const tData = [...tRows].map(tr => [...tr.children].map(td => td.innerText));
-        // const tData = [...tRows][0].map(tr => [...tr.children]);
-        // console.log(tData);
-        // navigator.clipboard.writeText(JSON.stringify(tData));
-        alert('In progress! \nPlease check back later.')
-    })
+    cBtn.addEventListener('click', createTextTable)
 })
 
 // Functions
@@ -92,11 +83,38 @@ function createTableRows(table, teamsList) {
 }
 
 function createTableHeader(table, teamsList) {
+    const headTr = document.createElement('tr');
     const tr = document.createElement('tr');
     teamsList.forEach((_, i) => {
-        const td = document.createElement('th');
-        td.innerText = `Team ${i + 1}`;
+        const th = document.createElement('th');
+        th.innerText = `Team ${i + 1}`;
+        headTr.appendChild(th);
+        const td = document.createElement('td');
+        td.innerText = '***';
         tr.appendChild(td);
     });
+    table.appendChild(headTr);
     table.appendChild(tr);
+}
+
+function createTextTable() {
+    const tRows = tTable.querySelectorAll('tr');
+    const longestName = Math.max(...groupList.map(name => name.length));
+    const columnWidth = longestName + 2;    
+    const qtyColumns = tRows[0].children.length;
+    const tableWidth = (columnWidth + 2) * qtyColumns + 1;
+    const hLine = '-'.repeat(tableWidth);
+    let textTable = hLine;
+    textTable += [...tRows].map(tr => (
+        '\n' + '|' + [...tr.children].map(td => `${trText(td.innerText, columnWidth)} |`).join('') + '\n' + hLine)
+    ).join('')
+
+    console.log(textTable)
+    navigator.clipboard.writeText(textTable);
+    
+    alert('The table is copied to the clipboard\nand print in the console. \nYou can go to Slack and paste it as a code block.')
+}
+
+function trText(text, minLength) {
+    return text.length > minLength ? text : text.padEnd(minLength, ' ');
 }
